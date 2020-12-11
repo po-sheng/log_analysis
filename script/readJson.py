@@ -50,10 +50,12 @@ def readJson(path):
             line_cnt = 0
             arrow = "=>"
             with open(filePath) as f:
-                for line in f.readlines():
+                lines = f.readlines()
+                for line in lines:
                     # Some cool try
-                    if line_cnt % 10000 == 0:
-                        print("Reading json file for "+label+" "+arrow, end='\r', flush=True)
+                    if line_cnt % (len(lines)//100) == 0:
+                        space = "" if len(arrow) - 2 == 100 else "  " if len(arrow) - 2 < 10 else " "
+                        print("Reading json file for "+label+" |"+arrow+(" "*(102-len(arrow)))+"| "+space+str(len(arrow)-2)+"%", end='\r', flush=True)
                         arrow = "=" + arrow 
                     line_cnt += 1
 
