@@ -5,7 +5,7 @@ from readJson import readJson
 def main(path):
     # read data
     datasets = readJson(path)
-
+    
     # do on each test data
     for idx in range(len(datasets["fileName"])):
         pred = "attack 1"

@@ -1,4 +1,5 @@
 import os
+import sys
 import json
 from multiprocessing import Pool
 
@@ -28,7 +29,7 @@ def readJson(path):
 
     labels = os.listdir(path)
     labels = sorted(labels)
-
+    
     for label in labels:
         labelPath = path + label
         beats = os.listdir(labelPath)
@@ -42,22 +43,48 @@ def readJson(path):
         for beat in beats:
             filePath = labelPath + "/" + beat
             multi_data.append(filePath)
-    
-    with Pool(len(multi_data)) as p:
-        ndata = p.map(multi_P, multi_data)
-    
-    for data in ndata:
-        if data[0] == "packet":
-            datasets["packet"].append(data[1])
-        elif data[0] == "winlog":
-            datasets["winlog"].append(data[1])
+#============================================================================
+# Ordinary methods
+            packet = []
+            winlog = []
+            line_cnt = 0
+            arrow = "=>"
+            with open(filePath) as f:
+                for line in f.readlines():
+                    # Some cool try
+                    if line_cnt % 10000 == 0:
+                        print("Reading json file for "+label+" "+arrow, end='\r', flush=True)
+                        arrow = "=" + arrow 
+                    line_cnt += 1
 
+                    data = json.loads(line)
+                    
+                    if beat.startswith("packet"):
+                        packet.append(data)
+                    elif beat.startswith("winlog"):
+                        winlog.append(data)
+
+            if beat.startswith("packet"):
+                datasets["packet"].append(packet)
+            elif beat.startswith("winlog"):
+                datasets["winlog"].append(winlog)
+#============================================================================
+# Multi process methods
+
+#     with Pool(len(multi_data)) as p:
+#         ndata = p.map(multi_P, multi_data)
+#     
+#     for data in ndata:
+#         if data[0] == "packet":
+#             datasets["packet"].append(data[1])
+#         elif data[0] == "winlog":
+#             datasets["winlog"].append(data[1])
+#============================================================================
+    print()
     return datasets
 
 if __name__ == "__main__":
     datasets = readJson("../dataset/Train/")
 
-#     print(label2idx)
-#     print(idx2label)
     print(len(datasets["packet"]))
 
