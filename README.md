@@ -5,17 +5,17 @@
         - run our code
 
 - Dataset hierarchy
-    Logs\r 
-    |- Train\r
-    |   |-- Attack_<ID> (e.g. Attack_1)\r
-    |   |   |--- winlogbeat.json\r
-    |   |   |--- packetbeat.json\r
-    |\r
-    |- Test\r
-    |   |-- Test_<ID> (e.g. Test_1)\r
-    |   |   |--- winlogbeat.json\r
-    |   |   |--- packetbeat.json\r
-    |\r
+    Logs\n
+    |- Train\n
+    |   |-- Attack_<ID> (e.g. Attack_1)\n
+    |   |   |--- winlogbeat.json\n
+    |   |   |--- packetbeat.json\n
+    |\n
+    |- Test\n
+    |   |-- Test_<ID> (e.g. Test_1)\n
+    |   |   |--- winlogbeat.json\n
+    |   |   |--- packetbeat.json\n
+    |\n
     
 
 - File explanation
