@@ -53,7 +53,7 @@ def readJson(path):
                 lines = f.readlines()
                 for line in lines:
                     # Some cool try
-                    if line_cnt % (len(lines)//100) == 0:
+                    if line_cnt % (len(lines)//100) == 0 and len(arrow) <= 102:
                         space = "" if len(arrow) - 2 == 100 else "  " if len(arrow) - 2 < 10 else " "
                         print("Reading json file for "+label+" |"+arrow+(" "*(102-len(arrow)))+"| "+space+str(len(arrow)-2)+"%", end='\r', flush=True)
                         arrow = "=" + arrow 
